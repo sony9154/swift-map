@@ -15,9 +15,15 @@ class ViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDelega
     
     let locationManager = CLLocationManager()
     var isfirstLocationReceived : Bool = false
+    let geocoder = CLGeocoder()
     
     @IBOutlet weak var mainMapView: MKMapView!
 
+    @IBOutlet weak var addressTextField: UITextField!
+    
+    
+    
+    
     @IBAction func mapTypeChange(sender: AnyObject) {
         let targetIndex = sender.selectedSegmentIndex
         //使用swithch去切換地圖的種類 maptype
@@ -60,6 +66,28 @@ class ViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDelega
         locationManager.delegate = self;
         locationManager.startUpdatingLocation()
         mainMapView.delegate = self;
+        
+        //let addressString = addressTextField.text
+        
+        geocoder.geocodeAddressString(addressTextField.text!) { (array:Array<placemarks>?, error:NSError?)  -> Void in
+            if error != nil{
+                print(error)
+            }
+            else if (placemarks != nil && placemarks.count > 0) {
+                let placemark = placemarks[0] as CLPlacemark
+            }
+        }
+        
+    }
+    
+    @IBAction func navToAddressBtn(sender: CLPlacemark) {
+        let place = MKPlacemark.init(placemark: CLPlacemark)
+        let mapItem = MKMapItem.init(place)
+        let options = [MKLaunchOptionsDirectionsModeKey:
+            MKLaunchOptionsDirectionsModeDriving,
+                       MKLaunchOptionsShowsTrafficKey: true]
+        
+        MKMapItem.openMapsWithItems(mapItem, launchOptions: options)
         
     }
     

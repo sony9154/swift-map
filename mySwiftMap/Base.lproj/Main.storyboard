@@ -45,26 +45,46 @@
                                     <action selector="userTrackingChange:" destination="BYZ-38-t0r" eventType="valueChanged" id="CNo-Oo-jb9"/>
                                 </connections>
                             </segmentedControl>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="請輸入住址" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mXZ-lR-LXQ">
+                                <rect key="frame" x="0.0" y="538" width="320" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SpM-X0-kIj">
+                                <rect key="frame" x="145" y="500" width="30" height="30"/>
+                                <state key="normal" title="導航"/>
+                                <connections>
+                                    <action selector="navToAddressBtn:" destination="BYZ-38-t0r" eventType="touchUpInside" id="dIF-XQ-zsR"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="484-Pk-Tnn" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="5ns-dH-4t9"/>
+                            <constraint firstItem="mXZ-lR-LXQ" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="BBb-WW-wha"/>
+                            <constraint firstItem="mXZ-lR-LXQ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="ITM-SA-brn"/>
                             <constraint firstItem="61l-49-L8w" firstAttribute="top" secondItem="dw6-TN-QPh" secondAttribute="bottom" constant="10" id="IVU-XZ-Ha3"/>
                             <constraint firstItem="484-Pk-Tnn" firstAttribute="bottom" secondItem="wfy-db-euE" secondAttribute="top" id="MEF-LA-doK"/>
+                            <constraint firstAttribute="trailing" secondItem="mXZ-lR-LXQ" secondAttribute="trailing" id="NBp-f5-stF"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="mXZ-lR-LXQ" secondAttribute="bottom" id="OXt-DR-tJW"/>
+                            <constraint firstItem="SpM-X0-kIj" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Ud4-NF-HMF"/>
                             <constraint firstItem="484-Pk-Tnn" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Vgq-lf-wPn"/>
                             <constraint firstItem="61l-49-L8w" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Xps-6W-CNH"/>
                             <constraint firstItem="dw6-TN-QPh" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="5" id="bjM-wq-SFI"/>
                             <constraint firstAttribute="trailing" secondItem="484-Pk-Tnn" secondAttribute="trailing" id="dcS-eX-6w8"/>
+                            <constraint firstItem="mXZ-lR-LXQ" firstAttribute="top" secondItem="SpM-X0-kIj" secondAttribute="bottom" constant="8" id="fwk-rB-cfw"/>
                             <constraint firstItem="dw6-TN-QPh" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="nQx-Mx-wog"/>
                         </constraints>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
+                        <outlet property="addressTextField" destination="mXZ-lR-LXQ" id="OtV-Si-4Cw"/>
                         <outlet property="mainMapView" destination="484-Pk-Tnn" id="PJJ-Ef-dvj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="565" y="377"/>
         </scene>
     </scenes>
 </document>
