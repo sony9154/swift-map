@@ -61,33 +61,39 @@ class ViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDelega
         super.viewDidLoad()
         locationManager.requestWhenInUseAuthorization()
         locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
-        //locationManager.activityType() = CLActivityTypeAutomotiveNavigation
+        //locationManager.activityType() = CLActivityTypeAutomotiveNavigation // 不會轉Swift
         
         locationManager.delegate = self;
         locationManager.startUpdatingLocation()
         mainMapView.delegate = self;
         
-        //let addressString = addressTextField.text
         
-        geocoder.geocodeAddressString(addressTextField.text!) { (array:Array<placemarks>?, error:NSError?)  -> Void in
+        // 從以下開始導航Doesn't Work
+        //let addressString = addressTextField.text
+        geocoder.geocodeAddressString(addressTextField.text!) { (placemarks:[CLPlacemark]? , error:NSError?)  -> Void in
             if error != nil{
                 print(error)
+            }else{
+                if placemarks != nil{
+                    if placemarks!.count > 0 {
+                        let thisPlacemark = placemarks![0]
+                        
+                    }
+                }
             }
-            else if (placemarks != nil && placemarks.count > 0) {
-                let placemark = placemarks[0] as CLPlacemark
-            }
-        }
+        } //從以上結束導航Doesn't Work
         
     }
     
-    @IBAction func navToAddressBtn(sender: CLPlacemark) {
-        let place = MKPlacemark.init(placemark: CLPlacemark)
-        let mapItem = MKMapItem.init(place)
-        let options = [MKLaunchOptionsDirectionsModeKey:
-            MKLaunchOptionsDirectionsModeDriving,
-                       MKLaunchOptionsShowsTrafficKey: true]
+    @IBAction func navToAddressBtn(targetPlacemark:CLPlacemark) {  //導航Doesn't Work
         
-        MKMapItem.openMapsWithItems(mapItem, launchOptions: options)
+        let place : MKPlacemark = MKPlacemark(placemark:targetPlacemark)
+        let mapItem : MKMapItem = MKMapItem(placemark: place)
+        
+        //let options = [MKLaunchOptionsDirectionsModeKey:MKLaunchOptionsDirectionsModeDriving,MKLaunchOptionsShowsTrafficKey: true]
+        let options = [MKLaunchOptionsDirectionsModeKey:MKLaunchOptionsDirectionsModeDriving]
+        
+        mapItem.openInMapsWithLaunchOptions(options)
         
     }
     
