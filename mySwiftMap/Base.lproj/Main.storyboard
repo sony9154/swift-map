@@ -54,7 +54,7 @@
                                 <rect key="frame" x="145" y="500" width="30" height="30"/>
                                 <state key="normal" title="導航"/>
                                 <connections>
-                                    <action selector="navToAddressBtn:" destination="BYZ-38-t0r" eventType="touchUpInside" id="dIF-XQ-zsR"/>
+                                    <action selector="navToAddressBtn" destination="BYZ-38-t0r" eventType="touchUpInside" id="be4-Tl-q83"/>
                                 </connections>
                             </button>
                         </subviews>

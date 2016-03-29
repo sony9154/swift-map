@@ -68,6 +68,11 @@ class ViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDelega
         mainMapView.delegate = self;
         
         
+        
+        
+    }
+    
+    func abc(address:String){
         // 從以下開始導航Doesn't Work
         //let addressString = addressTextField.text
         geocoder.geocodeAddressString(addressTextField.text!) { (placemarks:[CLPlacemark]? , error:NSError?)  -> Void in
@@ -77,24 +82,27 @@ class ViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDelega
                 if placemarks != nil{
                     if placemarks!.count > 0 {
                         let thisPlacemark = placemarks![0]
-                        
+                        self.launch(thisPlacemark)
                     }
                 }
             }
         } //從以上結束導航Doesn't Work
-        
     }
     
-    @IBAction func navToAddressBtn(targetPlacemark:CLPlacemark) {  //導航Doesn't Work
-        
-        let place : MKPlacemark = MKPlacemark(placemark:targetPlacemark)
-        let mapItem : MKMapItem = MKMapItem(placemark: place)
-        
-        //let options = [MKLaunchOptionsDirectionsModeKey:MKLaunchOptionsDirectionsModeDriving,MKLaunchOptionsShowsTrafficKey: true]
-        let options = [MKLaunchOptionsDirectionsModeKey:MKLaunchOptionsDirectionsModeDriving]
-        
-        mapItem.openInMapsWithLaunchOptions(options)
-        
+    @IBAction func navToAddressBtn() {  //導航Doesn't Work //(targetPlacemark:CLPlacemark)
+        self.abc(addressTextField.text!)
+    }
+    
+    func launch(targetPlacemark:CLPlacemark) {
+    
+     let place : MKPlacemark = MKPlacemark(placemark:targetPlacemark)
+     let mapItem : MKMapItem = MKMapItem(placemark: place)
+     
+     //let options = [MKLaunchOptionsDirectionsModeKey:MKLaunchOptionsDirectionsModeDriving,MKLaunchOptionsShowsTrafficKey: true]
+     let options = [MKLaunchOptionsDirectionsModeKey:MKLaunchOptionsDirectionsModeDriving]
+     
+     mapItem.openInMapsWithLaunchOptions(options)
+    
     }
     
     override func didReceiveMemoryWarning() {
