@@ -22,6 +22,7 @@ class ViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDelega
     @IBOutlet weak var addressTextField: UITextField!
     
     
+    @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
     
     
     @IBAction func mapTypeChange(sender: AnyObject) {
@@ -59,6 +60,12 @@ class ViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDelega
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // To create notification of when keyboard will appear & disappear
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ViewController.keyboardWillShow), name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ViewController.keyboardWillHide), name: UIKeyboardWillHideNotification, object: nil)
+        
+        
         locationManager.requestWhenInUseAuthorization()
         locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
         //locationManager.activityType() = CLActivityTypeAutomotiveNavigation // 不會轉Swift
@@ -67,33 +74,30 @@ class ViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDelega
         locationManager.startUpdatingLocation()
         mainMapView.delegate = self;
         
-        
-        
-        
     }
     
-    func abc(address:String){
-        // 從以下開始導航Doesn't Work
-        //let addressString = addressTextField.text
-        geocoder.geocodeAddressString(addressTextField.text!) { (placemarks:[CLPlacemark]? , error:NSError?)  -> Void in
+    func addressToGeoCode(address:String){
+        
+        let addressString = addressTextField.text
+        geocoder.geocodeAddressString(addressString!) { (placemarks:[CLPlacemark]? , error:NSError?)  -> Void in
             if error != nil{
                 print(error)
             }else{
                 if placemarks != nil{
                     if placemarks!.count > 0 {
                         let thisPlacemark = placemarks![0]
-                        self.launch(thisPlacemark)
+                        self.launchMapsWithPlacemark(thisPlacemark)
                     }
                 }
             }
-        } //從以上結束導航Doesn't Work
+        }
     }
     
-    @IBAction func navToAddressBtn() {  //導航Doesn't Work //(targetPlacemark:CLPlacemark)
-        self.abc(addressTextField.text!)
+    @IBAction func navToAddressBtn() { 
+        self.addressToGeoCode(addressTextField.text!)
     }
     
-    func launch(targetPlacemark:CLPlacemark) {
+    func launchMapsWithPlacemark(targetPlacemark:CLPlacemark) {
     
      let place : MKPlacemark = MKPlacemark(placemark:targetPlacemark)
      let mapItem : MKMapItem = MKMapItem(placemark: place)
@@ -114,8 +118,6 @@ class ViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDelega
         var currentLocation = CLLocation()
         currentLocation = locations.last!
         NSLog("Current Location: %.6f,%.6f", currentLocation.coordinate.latitude,currentLocation.coordinate.longitude)
-        //let firstLocationReceived : Bool = Bool() //初始化
-        //var isfirstLocationReceived = Bool()
         
         if(isfirstLocationReceived == false) {
 //            MKCoordinateRegion region = _theMapView.region;
@@ -180,6 +182,37 @@ class ViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDelega
         alert.addAction(ok)
         self.presentViewController(alert, animated: true, completion: nil)
     }
+    
+    // <-------------Start about Keyboard showing----------------->
+    func keyboardWillShow(notification:NSNotification) {
+        adjustingHeight(true, notification: notification)
+    }
+    
+    func keyboardWillHide(notification:NSNotification) {
+        adjustingHeight(false, notification: notification)
+    }
+    
+    func adjustingHeight(show:Bool, notification:NSNotification) {
+        // 1:Get notification information in an dictionary
+        var userInfo = notification.userInfo!
+        // 2:From information dictionary get keyboard’s size
+        let keyboardFrame:CGRect = (userInfo[UIKeyboardFrameBeginUserInfoKey] as! NSValue).CGRectValue()
+        // 3:Get the time required for keyboard pop up animation
+        let animationDurarion = userInfo[UIKeyboardAnimationDurationUserInfoKey] as! NSTimeInterval
+        // 4:Extract height of keyboard & add little space(40) between keyboard & text field. If bool is true then height is multiplied by 1 & if its false then height is multiplied by –1. This is short hand of if else statement.
+        let changeInHeight = (CGRectGetHeight(keyboardFrame) + 40) * (show ? 1 : -1)
+        //5:Animation moving constraint at same speed of moving keyboard & change bottom constraint accordingly.
+        UIView.animateWithDuration(animationDurarion, animations: { () -> Void in
+            self.bottomConstraint.constant += changeInHeight // bottomConstraint要拉進swift code as @IBOutlet
+        })
+    }
+    
+    // To close keyboard when touched on empty area
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    // <-------------End about Keyboard showing----------------->
+    
 }
 
 

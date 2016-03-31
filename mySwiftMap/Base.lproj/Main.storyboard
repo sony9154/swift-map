@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -17,13 +18,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="484-Pk-Tnn">
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="484-Pk-Tnn">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <connections>
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="4tJ-qX-ZYf"/>
                                 </connections>
                             </mapView>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="dw6-TN-QPh">
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="dw6-TN-QPh">
                                 <rect key="frame" x="99" y="25" width="122" height="29"/>
                                 <segments>
                                     <segment title="標準"/>
@@ -34,7 +35,7 @@
                                     <action selector="mapTypeChange:" destination="BYZ-38-t0r" eventType="valueChanged" id="rTq-Ug-EiS"/>
                                 </connections>
                             </segmentedControl>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="61l-49-L8w">
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="61l-49-L8w">
                                 <rect key="frame" x="45" y="63" width="230" height="29"/>
                                 <segments>
                                     <segment title="無"/>
@@ -45,13 +46,18 @@
                                     <action selector="userTrackingChange:" destination="BYZ-38-t0r" eventType="valueChanged" id="CNo-Oo-jb9"/>
                                 </connections>
                             </segmentedControl>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="請輸入住址" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mXZ-lR-LXQ">
-                                <rect key="frame" x="0.0" y="538" width="320" height="30"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="請輸入地址後導航" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mXZ-lR-LXQ">
+                                <rect key="frame" x="21" y="533" width="278" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SpM-X0-kIj">
-                                <rect key="frame" x="145" y="500" width="30" height="30"/>
+                                <rect key="frame" x="135" y="495" width="50" height="30"/>
+                                <color key="backgroundColor" red="1" green="0.80000001190000003" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="hR2-0a-Y5B"/>
+                                </constraints>
+                                <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="導航"/>
                                 <connections>
                                     <action selector="navToAddressBtn" destination="BYZ-38-t0r" eventType="touchUpInside" id="be4-Tl-q83"/>
@@ -60,25 +66,18 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="484-Pk-Tnn" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="5ns-dH-4t9"/>
-                            <constraint firstItem="mXZ-lR-LXQ" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="BBb-WW-wha"/>
-                            <constraint firstItem="mXZ-lR-LXQ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="ITM-SA-brn"/>
-                            <constraint firstItem="61l-49-L8w" firstAttribute="top" secondItem="dw6-TN-QPh" secondAttribute="bottom" constant="10" id="IVU-XZ-Ha3"/>
-                            <constraint firstItem="484-Pk-Tnn" firstAttribute="bottom" secondItem="wfy-db-euE" secondAttribute="top" id="MEF-LA-doK"/>
-                            <constraint firstAttribute="trailing" secondItem="mXZ-lR-LXQ" secondAttribute="trailing" id="NBp-f5-stF"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="mXZ-lR-LXQ" secondAttribute="bottom" id="OXt-DR-tJW"/>
-                            <constraint firstItem="SpM-X0-kIj" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Ud4-NF-HMF"/>
-                            <constraint firstItem="484-Pk-Tnn" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Vgq-lf-wPn"/>
-                            <constraint firstItem="61l-49-L8w" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Xps-6W-CNH"/>
-                            <constraint firstItem="dw6-TN-QPh" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="5" id="bjM-wq-SFI"/>
-                            <constraint firstAttribute="trailing" secondItem="484-Pk-Tnn" secondAttribute="trailing" id="dcS-eX-6w8"/>
-                            <constraint firstItem="mXZ-lR-LXQ" firstAttribute="top" secondItem="SpM-X0-kIj" secondAttribute="bottom" constant="8" id="fwk-rB-cfw"/>
-                            <constraint firstItem="dw6-TN-QPh" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="nQx-Mx-wog"/>
+                            <constraint firstItem="SpM-X0-kIj" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="0CM-Eh-ZTg"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="mXZ-lR-LXQ" secondAttribute="bottom" constant="5" id="dIs-En-0fg"/>
+                            <constraint firstItem="mXZ-lR-LXQ" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="j9i-Vn-ECY"/>
+                            <constraint firstItem="mXZ-lR-LXQ" firstAttribute="top" secondItem="SpM-X0-kIj" secondAttribute="bottom" constant="8" id="l1I-Xs-56g"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="mXZ-lR-LXQ" secondAttribute="trailing" constant="5" id="m5w-Tb-2jl"/>
+                            <constraint firstItem="mXZ-lR-LXQ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="5" id="uzZ-11-OUc"/>
                         </constraints>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="addressTextField" destination="mXZ-lR-LXQ" id="OtV-Si-4Cw"/>
+                        <outlet property="bottomConstraint" destination="dIs-En-0fg" id="31e-LT-Lhi"/>
                         <outlet property="mainMapView" destination="484-Pk-Tnn" id="PJJ-Ef-dvj"/>
                     </connections>
                 </viewController>
